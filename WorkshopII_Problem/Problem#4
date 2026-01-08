@@ -1,0 +1,17 @@
+############################################################
+#                      Answer: Problem 4                   #
+############################################################
+
+# Command 1: Add Code Here
+import pandas as pd
+
+dt = df1[['Day', 'Province', 'Temperature']]
+dt = dt.query('Day == "1/1/2562"')
+dt = dt.sort_values(by=['Temperature'], ascending=[False])
+
+# Command 2: Add Code Here
+import matplotlib.pyplot as plt
+name = dt['Province']
+values = dt['Temperature']
+plt.bar(name, values)
+plt.show()

@@ -1,0 +1,18 @@
+from ast import Add
+############################################################
+#                      Answer: Problem 3                   #
+############################################################
+
+# Add Code Here
+import pandas as pd
+import numpy as np
+df1 = pd.read_csv('/content/drive/MyDrive/Python/weather1.csv')
+df2 = pd.read_csv('/content/drive/MyDrive/Python/weather2.csv')
+
+df1 = pd.concat([df1,df2], ignore_index=True)
+
+add = np.array([33,39,28,28,30,25,27,40,38,29,39,28,35,25,27,35,
+                'NaN','NaN','NaN','NaN','NaN','NaN','NaN','NaN'], float)
+df1['Temperature'] = add
+#print(df1)
+display(df1)

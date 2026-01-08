@@ -1,0 +1,16 @@
+############################################################
+#                      Answer: Problem 4                   #
+############################################################
+
+# Command 1: Create dictionary (dict1)
+    # Add Code Here
+dict1 = {('B5601', 'B5604'): 80, 'B5602': 75, 'B5603': 90, 'B5605': 75, 'B5606': 101}
+# Command 2: Backup dictionary (dict1 -> dict2)
+dict2 = dict1.copy()
+    # Add Code Here
+# Command 3: Revise dictionary (a score of B5603 and delete B5606)
+dict1 ['B5603'] = dict1 ['B5603'] - 10
+del dict1 ['B5606']
+# Command 4: Show dictionary before and after revision
+print(dict2)
+print(dict1)

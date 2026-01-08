@@ -1,0 +1,26 @@
+from matplotlib.lines import lineStyles
+import pandas as pd
+import matplotlib.pyplot as plt
+
+############################################################
+#                      Answer: Problem 5                   #
+############################################################
+
+# Command 1: Add Code Here
+# Filter for Bangkok data
+df_bangkok = df1[df1['Province'] == 'Bangkok'][['Day', 'Temperature']]
+df_bangkok = df_bangkok.sort_values(by='Day', ascending=True)
+
+df_phuket = df1[df1['Province'] == 'Phuket'][['Day', 'Temperature']]
+df_phuket = df_phuket.sort_values(by='Day', ascending=True)
+
+# Command 2: Add Code Here
+plt.plot(df_bangkok['Day'], df_bangkok['Temperature'], linestyle='--', label="Bangkok", color='blue')
+plt.plot(df_phuket['Day'], df_phuket['Temperature'], linestyle='-.', label="Phuket", color='green')
+
+plt.legend(loc="lower left")
+plt.xlabel('Day')
+plt.ylabel('Temperature')
+
+plt.title('Temperature of Bangkok and Phuket', fontsize=14, fontweight='bold')
+plt.show()

@@ -1,0 +1,17 @@
+############################################################
+#                      Answer: Problem 2                   #
+############################################################
+from google.colab import drive
+drive.mount('/content/drive')
+
+# Command 1: Add Code Here
+import pandas as pd
+df1 = pd.read_csv('/content/drive/MyDrive/Python/weather1.csv')
+#print(df1)
+
+# Command 2: Add Code Here
+import pandas as pd
+df2 = pd.read_csv('/content/drive/MyDrive/Python/weather2.csv')
+#print(df2)
+display(df1)
+display(df2)
