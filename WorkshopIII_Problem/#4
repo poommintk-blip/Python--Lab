@@ -1,0 +1,30 @@
+from sklearn import datasets
+from sklearn.neural_network import MLPClassifier
+from sklearn.model_selection import cross_val_score, KFold
+
+#นำเข้าข้อมูล iris จาก sklearn
+iris = datasets.load_iris()
+x = iris.data
+y = iris.target
+
+#สามารถสร้างแบบจำลองโดยใช้เทคนิค Artificial Neural Network และชุดข้อมูลที่แบง 8 ชุดนั้น (hint: MLPClassifier(hidden_layer_sizes=(10,10,10), max_iter=1000))
+model = MLPClassifier(hidden_layer_sizes=(10,10,10), max_iter=1000)
+kfold = KFold(n_splits=8, shuffle=True, random_state=1)
+results = cross_val_score(model, x, y, cv=kfold)
+
+#สามารถประเมินแบบจำลองโดยใช้ Accuracy ได้ โดยแสดงค่าของแต่ละรอบ และค่าเฉลี่ยทั้งหมด ออกทางจอภาพ
+Accuracies = cross_val_score(estimator = model, X = iris.data, y = iris.target, cv = 8)
+Avg_accuracy = Accuracies.mean()
+print(Accuracies)
+print(Avg_accuracy)
+
+#สามารถแสดงกราฟเส้น (Line Graph) ของค่า Accuracy ทั้ง 8 ออกทางจอภาพ
+import numpy as np
+import matplotlib.pyplot as plt
+k_range = np.arange(1,9)
+name = k_range
+value = Accuracies
+plt.plot(name, value)
+plt.xlabel('Value of k of KNN')
+plt.ylabel('Accuracy')
+plt.show()

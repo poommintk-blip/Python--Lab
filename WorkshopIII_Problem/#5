@@ -1,0 +1,74 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from pandas.core.common import random_state
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix
+from sklearn import neighbors
+from sklearn import tree
+from sklearn import metrics
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neural_network import MLPClassifier
+
+
+#สามารถนำเข้าข้อมูล iris data จาก sklearn datasets ได้ถูกต้อง และแบ่งข้อมูล Training set 80% และ Testset 20%
+iris = datasets.load_iris()
+x = iris.data
+y = iris.target
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=2)
+
+#โดยแสดงข้อมูล x_train, y_train, x_test, y_test ออกทางจอภาพได้
+print("x_train =", pd.DataFrame(x_train).head())
+print("y_train =", pd.DataFrame(y_train).head())
+print("x_test =", pd.DataFrame(x_test).head())
+print("y_test =", pd.DataFrame(y_test).head())
+
+#สามารถสร้างแบบจำลองโดยใช้ 4 เทคนิค คือ KNeighborsClassifier, Decision Tree ความลึกสูงสุดของต้นไม้คือ 4, GaussianNB, และ Artificial Neural Network
+model_knn = KNeighborsClassifier()
+model_dt = DecisionTreeClassifier(max_depth=4)
+model_nb = GaussianNB()
+model_ann = MLPClassifier(max_iter=1000)
+
+#แสดงข้อมูลผลลัพธ์ (y_true) และข้อมูลที่ได้จากการทำนาย (y_pred) ออกทางจอภาพได้
+y_pred_knn = model_knn.fit(x_train, y_train).predict(x_test)
+y_pred_dt  = model_dt.fit(x_train, y_train).predict(x_test)
+y_pred_nb  = model_nb.fit(x_train, y_train).predict(x_test)
+y_pred_ann = model_ann.fit(x_train, y_train).predict(x_test)
+
+print("Y_Predict (y_predict) (KN) =", y_pred_knn)
+print("Y_Predict (y_predict) (Decision Tree) =", y_pred_dt)
+print("Y_Predict (y_predict) (GaussianNB) =", y_pred_nb)
+print("Y_Predict (y_predict) (Neural Network) =", y_pred_ann)
+
+#สามารถแสดง Confusion Matrix ออกทางจอภาพได้
+
+cf1 = confusion_matrix(y_test, y_pred_knn)
+cf2 = confusion_matrix(y_test, y_pred_dt)
+cf3 = confusion_matrix(y_test, y_pred_nb)
+cf4 = confusion_matrix(y_test, y_pred_ann)
+
+print("Confusion_matrix (KN) =", cf1)
+print("Confusion_matrix (Decision Tree) =", cf2)
+print("Confusion_matrix (GaussianNB) =", cf3)
+print("Confusion_matrix (Neural Network) =", cf4)
+
+#สามารถประเมินแบบจำลองโดยใช้ F-measure ได้ โดยแสดงค่าทั้งหมดออกทางจอภาพ
+f_knn = f1_score(y_test, y_pred_knn, average='weighted')
+f_dt  = f1_score(y_test, y_pred_dt, average='weighted')
+f_nb  = f1_score(y_test, y_pred_nb, average='weighted')
+f_ann = f1_score(y_test, y_pred_ann, average='weighted')
+
+print("F-measure (KN) =", round(f_knn, 2))
+print("F-measure (Decision Tree) =", round(f_dt, 2))
+print("F-measure (GaussianNB) =", round(f_nb, 2))
+print("F-measure (Neural Network) =", round(f_ann, 2))
+
+#สามารถแสดงตารางเปรียบเทียบผลการประเมินของทุกเทคนิคได้
+df = pd.DataFrame({
+    'KN': [f_knn],
+    'Decision Tree': [f_dt],
+    'GaussianNB': [f_nb],
+    'Neural Network': [f_ann]
+})
+
+print(df)

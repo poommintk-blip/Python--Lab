@@ -1,0 +1,40 @@
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn import neighbors
+from sklearn.metrics import confusion_matrix
+from sklearn import metrics
+
+#นำเข้าข้อมูล iris.data และ iris.target จาก sklearn
+iris = datasets.load_iris()
+x = iris.data
+y = iris.target
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.4, random_state=1)
+
+
+#สร้าง Model KNeighborsClassifier
+knn = neighbors.KNeighborsClassifier()
+knn.fit(x_train, y_train)
+y_pred = knn.predict(x_test)
+
+#แสดงผล Y_TRUE และ Y_Predict
+print("x_train = ", x_train)
+print("y_train = ", y_train)
+print("x_test = ", x_test)
+print("y_test = ", y_test)
+print("Y_TRUE (y_test) = ", y_test)
+print("Y_Predict (y_pred) = ", y_pred)
+
+#แสดงผล Confusion_matrix
+print("Confusion Matrix = ", confusion_matrix(y_test, y_pred))
+
+#แสดงผลการประเมินผลโมเดล ในส่วนของ Accuracy, Precision, Recall และ F-measure
+accurasy1 = metrics.accuracy_score(y_test, y_pred)
+precision1 = metrics.precision_score(y_test, y_pred, average='macro' )
+recall1 = metrics.recall_score(y_test, y_pred, average='macro')
+f2 = metrics.f1_score(y_test, y_pred, average='macro')
+
+print("Accuracy = %.2f" %(accurasy1))
+print("Precusion = %.2f" %(precision1))
+print("Recall = %2.f" %(recall1))
+print("F-measure = %.2f" %(f2))

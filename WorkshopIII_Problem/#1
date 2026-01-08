@@ -1,0 +1,34 @@
+from sklearn import datasets
+from sklearn import neighbors
+from sklearn.metrics import confusion_matrix
+from sklearn import metrics
+
+#นำเข้าข้อมูล iris.data และ iris.target จาก sklearn
+iris = datasets.load_iris()
+x = iris.data
+y_true = iris.target
+print("X = ", x)
+
+#สร้าง Model KNeighborsClassifier
+knn= neighbors.KNeighborsClassifier()
+knn.fit(x, y_true)
+y_pred = knn.predict(x)
+
+
+#แสดงผล Y_TRUE และ Y_Predict
+print("Y_TRUE = ",y_true)
+print("Y_Predect = ",y_pred)
+
+#แสดงผล Confusion_matrix
+print(confusion_matrix(y_true,y_pred))
+
+#แสดงผลการประเมินผลโมเดล ในส่วนของ Accuracy, Precision, Recall และ F-measure
+accurasy = metrics.accuracy_score(y_true, y_pred)
+precision = metrics.precision_score(y_true, y_pred, average='weighted')
+recall = metrics.recall_score(y_true, y_pred, average='weighted')
+f1 = metrics.f1_score(y_true, y_pred, average='weighted')
+
+print("Accuracy = %.2f" %(accurasy))
+print("Precusion = %.2f" %(precision))
+print("Recall = %2.f" %(recall))
+print("F-measure = %.2f" %(f1))
