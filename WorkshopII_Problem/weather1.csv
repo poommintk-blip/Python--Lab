@@ -1,0 +1,13 @@
+Day,Province,Outlook,Humidity
+1/1/2562,Bangkok,sunny,high
+1/1/2562,Phuket,sunny,high
+1/1/2562,ChiangMai,overcast,high
+2/1/2562,Bangkok,rainy,high
+2/1/2562,Phuket,rainy,normal
+2/1/2562,ChiangMai,rainy,normal
+3/1/2562,Bangkok,overcast,normal
+3/1/2562,Phuket,sunny,high
+3/1/2562,ChiangMai,sunny,normal
+4/1/2562,Bangkok,rainy,normal
+4/1/2562,Phuket,sunny,normal
+4/1/2562,ChiangMai,overcast,high
