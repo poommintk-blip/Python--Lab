@@ -24,8 +24,8 @@ print("x_test =", pd.DataFrame(x_test).head())
 print("y_test =", pd.DataFrame(y_test).head())
 
 #สามารถสร้างแบบจำลองโดยใช้ 4 เทคนิค คือ KNeighborsClassifier, Decision Tree ความลึกสูงสุดของต้นไม้คือ 4, GaussianNB, และ Artificial Neural Network
-model_knn = KNeighborsClassifier()
-model_dt = DecisionTreeClassifier(max_depth=4)
+model_knn = neighbors.KNeighborsClassifier()
+model_dt = tree.DecisionTreeClassifier(max_depth=4)
 model_nb = GaussianNB()
 model_ann = MLPClassifier(max_iter=1000)
 
@@ -41,7 +41,6 @@ print("Y_Predict (y_predict) (GaussianNB) =", y_pred_nb)
 print("Y_Predict (y_predict) (Neural Network) =", y_pred_ann)
 
 #สามารถแสดง Confusion Matrix ออกทางจอภาพได้
-
 cf1 = confusion_matrix(y_test, y_pred_knn)
 cf2 = confusion_matrix(y_test, y_pred_dt)
 cf3 = confusion_matrix(y_test, y_pred_nb)
@@ -53,10 +52,10 @@ print("Confusion_matrix (GaussianNB) =", cf3)
 print("Confusion_matrix (Neural Network) =", cf4)
 
 #สามารถประเมินแบบจำลองโดยใช้ F-measure ได้ โดยแสดงค่าทั้งหมดออกทางจอภาพ
-f_knn = f1_score(y_test, y_pred_knn, average='weighted')
-f_dt  = f1_score(y_test, y_pred_dt, average='weighted')
-f_nb  = f1_score(y_test, y_pred_nb, average='weighted')
-f_ann = f1_score(y_test, y_pred_ann, average='weighted')
+f_knn = metrics.f1_score(y_test, y_pred_knn, average='weighted')
+f_dt  = metrics.f1_score(y_test, y_pred_dt, average='weighted')
+f_nb  = metrics.f1_score(y_test, y_pred_nb, average='weighted')
+f_ann = metrics.f1_score(y_test, y_pred_ann, average='weighted')
 
 print("F-measure (KN) =", round(f_knn, 2))
 print("F-measure (Decision Tree) =", round(f_dt, 2))
