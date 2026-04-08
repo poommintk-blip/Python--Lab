@@ -18,10 +18,11 @@ def search_top_python_repos():
             name = repo.get('name')
             stars = repo.get('stargazers_count')
             url = repo.get('html_url')
+            print()
             print(f"{index}. {name}")
             print(f"   stars: {stars}")
             print(f"   url: {url}")
-            print()
+            
     else:
         print(f"Error: {response.status_code}")
 
