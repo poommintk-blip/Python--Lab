@@ -21,6 +21,7 @@ def search_top_python_repos():
             print(f"{index}. {name}")
             print(f"   stars: {stars}")
             print(f"   url: {url}")
+            print()
     else:
         print(f"Error: {response.status_code}")
 

@@ -21,7 +21,7 @@ def get_country_info(country_name):
         langs = country.get('languages', {})
         languages = ", ".join(langs.values()) if langs else 'N/A'
         
-        print("=== Country Info ===")
+        print("\n" + "=== Country Info ===" + "\n")
         print(f"Name: {name}")
         print(f"Capital: {capital}")
         print(f"Region: {region}")

@@ -32,6 +32,6 @@ if __name__ == "__main__":
     ]
     
     for url in test_urls:
-        print(f"Testing URL: {url}")
-        get_json(url)
-        print("-" * 20)
+       print(f"Testing URL: {url}")
+       get_json(url)
+       print("-" * 20)
