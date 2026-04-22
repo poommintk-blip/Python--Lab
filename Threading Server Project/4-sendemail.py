@@ -10,9 +10,7 @@ from datetime import datetime
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-# ─────────────────────────────────────────────
-# CONFIG
-# ─────────────────────────────────────────────
+
 BASE_URL   = "http://203.158.3.33:8080"
 WS_URL     = "ws://203.158.3.33:8080/api/ws"
 PUBLIC_ID  = "44a00910-fa93-11ef-94ed-973314b03447"
@@ -23,10 +21,9 @@ SMTP_PORT     = 587
 EMAIL_SENDER  = "poommin.tk@gmail.com"          # ← เปลี่ยนเป็นอีเมลของคุณ (ต้องเป็น Gmail และสร้าง App Password แล้ว)
 EMAIL_PASSWORD = "uvta yuyz ylah ovws"          # Gmail App Password
 EMAIL_RECIPIENTS = ["poommin.tk@gmail.com"]     # ← เพิ่มอีเมลปลายทางได้ที่นี่
+#EMAIL_RECIPIENTS = ["Aoy2548a1@gmail.com", "poommin.tk@gmail.com", "samsung.beedsawa@gmail.com"]  # ตัวอย่างส่งถึงหลายคน
 
-# ─────────────────────────────────────────────
-# STOP DETECTION SETTINGS
-# ─────────────────────────────────────────────
+
 # รถถือว่า "จอด" เมื่อ speed = 0 ติดต่อกัน STOP_CONFIRM_SECONDS วินาที
 STOP_CONFIRM_SECONDS = 10
 
@@ -147,31 +144,31 @@ def send_email_notification(bus_name: str, label: str, lat: float, lon: float,
     </div>
     <div class="body">
       <div class="row">
-        <span class="label">ชื่อรถ </span>
+        <span class="label">ชื่อรถ\n </span>
         <span class="value">{bus_name}</span>
       </div>
       <div class="row">
-        <span class="label">ป้ายทะเบียน / Label </span>
+        <span class="label">ป้ายทะเบียน / Label\n </span>
         <span class="value">{label}</span>
       </div>
       <div class="row">
-        <span class="label">สายรถ (Route) </span>
+        <span class="label">สายรถ (Route)\n </span>
         <span class="value"><span class="badge">{route}</span></span>
       </div>
       <div class="row">
-        <span class="label">สถานะ </span>
+        <span class="label">สถานะ\n </span>
         <span class="value">{status}</span>
       </div>
       <div class="row">
-        <span class="label">ที่นั่งว่าง </span>
+        <span class="label">ที่นั่งว่าง\n </span>
         <span class="value">{seats} ที่นั่ง</span>
       </div>
       <div class="row">
-        <span class="label">ละติจูด (Latitude) </span>
+        <span class="label">ละติจูด (Latitude)\n </span>
         <span class="value">{lat}</span>
       </div>
       <div class="row">
-        <span class="label">ลองติจูด (Longitude) </span>
+        <span class="label">ลองติจูด (Longitude)\n </span>
         <span class="value">{lon}</span>
       </div>
       <a href="{maps_link}" class="btn"> ดูตำแหน่งใน Google Maps </a>
