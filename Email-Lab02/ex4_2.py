@@ -21,8 +21,8 @@ if ip:
         rev, _, _ = socket.gethostbyaddr(ip)
         print(f'Reverse: {ip} → {rev}')
     except socket.herror:
-        print(f'Reverse: {ip} → ไม่พบ PTR record') [cite: 690]
-
+        print(f'Reverse: {ip} → ไม่พบ PTR record') 
+        
     match = geo.lookup(ip)
     if match:
         print(f'GeoIP: {match.country_name} ({match.country_code}) '

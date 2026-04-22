@@ -12,16 +12,16 @@ from email import encoders
 # --- Configuration (Credentials) ---
 # ข้อมูล Email (Part 1)
 EMAIL = 'poommin.tk@gmail.com'
-EMAIL_PASS = 'uvta yuyz ylah ovws' # App Password 16 หลักของคุณ [cite: 21, 216]
+EMAIL_PASS = 'uvta yuyz ylah ovws' # App Password 16 หลักของคุณ 
 
 # ข้อมูล SSH/SFTP (Part 3)
 SSH_HOST = 'digilab.sut.ac.th'
 SSH_PORT = 2222
-SSH_USER = 'student51' # เปลี่ยนเป็น Username ของคุณ [cite: 501]
-SSH_PASS = 'yoi7UGygDAqO3z' # รหัสผ่านจากอาจารย์ [cite: 502]
+SSH_USER = 'student51' # เปลี่ยนเป็น Username ของคุณ 
+SSH_PASS = 'yoi7UGygDAqO3z' # รหัสผ่านจากอาจารย์ 
 
 def automated_monitor():
-    # 1. รับชื่อ server และทำ DNS Lookup (Part 4) [cite: 721, 816]
+    # 1. รับชื่อ server และทำ DNS Lookup (Part 4) 
     target_server = input('Enter server to monitor: ')
     print(f'[DNS] Querying A record for {target_server}...')
     try:
@@ -32,15 +32,15 @@ def automated_monitor():
         print(f'[DNS] Error: {e}')
         server_ip = "Unknown IP"
 
-    # 2. SSH เข้า Server เพื่อรันคำสั่ง (Part 3) [cite: 722, 723, 820]
+    # 2. SSH เข้า Server เพื่อรันคำสั่ง (Part 3) 
     print(f'[SSH] Connecting to {SSH_HOST}:{SSH_PORT}...')
     try:
         ssh = paramiko.SSHClient()
         ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy()) 
-        ssh.connect(SSH_HOST, port=SSH_PORT, username=SSH_USER, password=SSH_PASS) 
+        ssh.connect(SSH_HOST, port=SSH_PORT, username=SSH_USER, password=SSH_PASS, timeout=10) 
         print(f'[SSH] Connected to {SSH_HOST}')
 
-        # รันคำสั่ง uptime และ df -h [cite: 487, 723]
+        # รันคำสั่ง uptime และ df -h 
         _, stdout_uptime, _ = ssh.exec_command('uptime')
         uptime_res = stdout_uptime.read().decode().strip()
         
@@ -48,7 +48,7 @@ def automated_monitor():
         df_res = stdout_df.read().decode().strip()
         print('[SSH] df -h and uptime collected') 
 
-        # 3. บันทึกผลลงไฟล์ (Part 1.2) [cite: 724, 821]
+        # 3. บันทึกผลลงไฟล์ (Part 1.2) 
         filename = f'report_{SSH_USER}.txt'
         with open(filename, 'w', encoding='utf-8') as f:
             f.write(f"Automated Server Report\n") 
@@ -66,10 +66,10 @@ def automated_monitor():
         sftp.close()
         ssh.close()
 
-        # 5. ส่ง Email แจ้ง Admin พร้อมแนบไฟล์ (Part 1.2) [cite: 726, 823]
+        # 5. ส่ง Email แจ้ง Admin พร้อมแนบไฟล์ (Part 1.2) 
         msg = MIMEMultipart() [cite: 218]
         msg['From'] = EMAIL
-        msg['To'] = EMAIL # ส่งหาตัวเองตามโจทย์ [cite: 222]
+        msg['To'] = EMAIL # ส่งหาตัวเองตามโจทย์ 
         msg['Subject'] = f'Server Report: {target_server}' 
         
         body = f"พบเอกสารรายงานเซิร์ฟเวอร์ประจำวันของ {target_server} อยู่ในไฟล์แนบ" 
