@@ -3,7 +3,7 @@ import paramiko
 SSH_HOST = 'digilab.sut.ac.th'
 SSH_PORT = 2222
 SSH_USER = 'student51' 
-SSH_PASS = 'yoi7UGygDAqO3z' 
+SSH_PASS = 'i7UGygDAqO3z' 
 
 with open('sftp_test.txt', 'w') as f:
     f.write(f'SFTP upload from {SSH_USER}\n')
