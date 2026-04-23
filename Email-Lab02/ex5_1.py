@@ -9,16 +9,15 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 
-# --- Configuration (Credentials) ---
 # ข้อมูล Email (Part 1)
-EMAIL = 'poommin.tk@gmail.com'
-EMAIL_PASS = 'uvta yuyz ylah ovws' # App Password 16 หลักของคุณ 
+EMAIL = 'B6803612@sut.ac.th' # เปลี่ยนเป็น Email ของคุณ
+EMAIL_PASS = 'isls yxuv zdtb tomy' # App Password 16 หลักของคุณ 
 
 # ข้อมูล SSH/SFTP (Part 3)
 SSH_HOST = 'digilab.sut.ac.th'
 SSH_PORT = 2222
 SSH_USER = 'student51' # เปลี่ยนเป็น Username ของคุณ 
-SSH_PASS = 'yoi7UGygDAqO3z' # รหัสผ่านจากอาจารย์ 
+SSH_PASS = 'i7UGygDAqO3z' # เปลี่ยนเป็น Password ของคุณ
 
 def automated_monitor():
     # 1. รับชื่อ server และทำ DNS Lookup (Part 4) 
@@ -58,7 +57,7 @@ def automated_monitor():
             f.write(f"[Disk Usage]\n{df_res}\n") 
         print(f'[FILE] Saved {filename}') 
 
-        # 4. SFTP อัปโหลดไฟล์ไปเก็บเป็น Log (Part 3.2) [cite: 725, 822]
+        # 4. SFTP อัปโหลดไฟล์ไปเก็บเป็น Log (Part 3.2)
         sftp = ssh.open_sftp() 
         remote_path = f'upload/{filename}'
         sftp.put(filename, remote_path) 
@@ -67,7 +66,7 @@ def automated_monitor():
         ssh.close()
 
         # 5. ส่ง Email แจ้ง Admin พร้อมแนบไฟล์ (Part 1.2) 
-        msg = MIMEMultipart() [cite: 218]
+        msg = MIMEMultipart() 
         msg['From'] = EMAIL
         msg['To'] = EMAIL # ส่งหาตัวเองตามโจทย์ 
         msg['Subject'] = f'Server Report: {target_server}' 
