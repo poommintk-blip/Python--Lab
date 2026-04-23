@@ -10,7 +10,7 @@ from email.mime.base import MIMEBase
 from email import encoders
 
 # ข้อมูล Email (Part 1)
-EMAIL = 'B6803612@sut.ac.th' # เปลี่ยนเป็น Email ของคุณ
+EMAIL = 'B6803612@g.sut.ac.th' # เปลี่ยนเป็น Email ของคุณ
 EMAIL_PASS = 'isls yxuv zdtb tomy' # App Password 16 หลักของคุณ 
 
 # ข้อมูล SSH/SFTP (Part 3)
