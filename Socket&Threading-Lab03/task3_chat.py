@@ -47,7 +47,7 @@ def handle(conn, addr):
     except ConnectionResetError:
         pass
     finally:
-        # เมื่อ disconnect ให้ลบออกจาก dict และแจ้งทุกคน[cite: 1]
+        # เมื่อ disconnect ให้ลบออกจาก dict และแจ้งทุกคน
         with lock:
             if conn in clients:
                 nickname = clients[conn]
@@ -58,9 +58,9 @@ def handle(conn, addr):
         broadcast(leave_msg)
         conn.close()
 
-# Main Server Setup[cite: 1]
+# Main Server Setup
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # ป้องกัน Address already in use[cite: 1]
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # ป้องกัน Address already in use
 server.bind((HOST, PORT))
 server.listen(10)
 print(f"[SERVER] Chat Room running on {PORT}...")
@@ -68,4 +68,4 @@ print(f"[SERVER] Chat Room running on {PORT}...")
 with ThreadPoolExecutor(max_workers=10) as pool:
     while True:
         conn, addr = server.accept()
-        pool.submit(handle, conn, addr) # รัน handle ใน thread ใหม่[cite: 1]
+        pool.submit(handle, conn, addr) # รัน handle ใน thread ใหม่
