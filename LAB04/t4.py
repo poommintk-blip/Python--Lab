@@ -2,7 +2,7 @@ import asyncio
 
 HOST = '0.0.0.0'
 PORT = 9003
-clients = {} # writer -> nickname [cite: 40, 50]
+clients = {} # writer -> nickname
 
 async def broadcast(message, sender=None): 
     dead_clients = []
@@ -15,15 +15,15 @@ async def broadcast(message, sender=None):
         except Exception:
             dead_clients.append(writer)
     
-    # cleanup dead clients [cite: 41]
+    # cleanup dead clients 
     for writer in dead_clients:
         if writer in clients:
             del clients[writer]
-
+ 
 async def handle_client(reader, writer): 
     addr = writer.get_extra_info('peername')
     
-    # รับ nickname จาก client [cite: 42]
+    # รับ nickname จาก client 
     writer.write("Enter nickname: ".encode())
     await writer.drain()
     data = await reader.read(1024)
@@ -32,10 +32,10 @@ async def handle_client(reader, writer):
         return
         
     nickname = data.decode().strip()
-    # เพิ่มเข้า clients dict [cite: 42]
+    # เพิ่มเข้า clients dict [writer] = nickname
     clients[writer] = nickname
     
-    # broadcast 'nickname joined!' [cite: 42, 50]
+    # broadcast 'nickname joined!'
     print(f' [+] {nickname} connected from {addr}')
     await broadcast(f'{nickname} joined\n')
     
