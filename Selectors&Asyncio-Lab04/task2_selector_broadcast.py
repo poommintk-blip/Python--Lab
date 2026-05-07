@@ -5,14 +5,14 @@ HOST = '0.0.0.0'
 PORT = 9001
 
 sel = selectors.DefaultSelector()
-clients = set() # เก็บ client socket ทั้งหมด [cite: 18]
+clients = set() # เก็บ client socket ทั้งหมด 
 
 def accept(sock, mask):
     conn, addr = sock.accept()
     print(f' [+] Connected: {addr}')
     conn.setblocking(False)
     sel.register(conn, selectors.EVENT_READ, read)
-    # เพิ่ม conn เข้า clients set [cite: 25]
+    # เพิ่ม conn เข้า clients set 
     clients.add(conn)
 
 def read(conn, mask):
@@ -22,7 +22,7 @@ def read(conn, mask):
             addr = conn.getpeername()
             msg = f'{addr}: {data.decode()}'
             print(f' [*] Broadcast: {msg}')
-            # broadcast ข้อความให้ทุกคน ยกเว้น sender [cite: 18]
+            # broadcast ข้อความให้ทุกคน ยกเว้น sender 
             for client in clients:
                 if client is not conn:
                     try:
@@ -39,7 +39,7 @@ def disconnect(conn):
         print(f' [-] Disconnected: {conn.getpeername()}')
     except:
         print(f' [-] Disconnected')
-    # ลบ conn ออกจาก clients, unregister และ close [cite: 25]
+    # ลบ conn ออกจาก clients, unregister และ close 
     if conn in clients:
         clients.remove(conn)
     sel.unregister(conn)
