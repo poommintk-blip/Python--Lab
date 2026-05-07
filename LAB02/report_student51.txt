@@ -1,0 +1,17 @@
+Automated Server Report
+Server: digilab.sut.ac.th (203.158.3.36)
+Report Time: 2026-04-23 14:45:56
+
+[Uptime]
+07:45:56 up 275 days,  5:50,  0 user,  load average: 0.00, 0.00, 0.00
+
+[Disk Usage]
+Filesystem           Size  Used Avail Use% Mounted on
+overlay              237G  132G  106G  56% /
+tmpfs                 64M     0   64M   0% /dev
+tmpfs                1.9G     0  1.9G   0% /sys/fs/cgroup
+shm                   64M     0   64M   0% /dev/shm
+/dev/mapper/cl-root  237G  132G  106G  56% /srv/lab-users
+tmpfs                1.9G     0  1.9G   0% /proc/acpi
+tmpfs                1.9G     0  1.9G   0% /proc/scsi
+tmpfs                1.9G     0  1.9G   0% /sys/firmware
