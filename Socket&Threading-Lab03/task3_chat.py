@@ -3,8 +3,8 @@ import socket
 import threading
 from concurrent.futures import ThreadPoolExecutor
 
-HOST_ADDR = '0.0.0.0'
-PORT_ADDR = 9002
+HOST = '0.0.0.0'
+PORT = 9002
 clients = {}  # เก็บข้อมูล conn -> nickname
 lock = threading.Lock() # ใช้ Lock ป้องกัน Race Condition
 
@@ -44,11 +44,10 @@ def handle(conn, addr):
             broadcast_msg = f"{nickname}: {msg}"
             broadcast(broadcast_msg, sender=conn)
 
-    except (ConnectionResetError, BrokenPipeError):
+    except ConnectionResetError:
         pass
     finally:
         # เมื่อ disconnect ให้ลบออกจาก dict และแจ้งทุกคน
-        nickname = "Unknown"
         with lock:
             if conn in clients:
                 nickname = clients[conn]
@@ -59,63 +58,14 @@ def handle(conn, addr):
         broadcast(leave_msg)
         conn.close()
 
-def run_server():
-    # Main Server Setup
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # ป้องกัน Address already in use
-    server.bind((HOST_ADDR, PORT_ADDR))
-    server.listen(10)
-    print(f"[SERVER] Chat Room running on {PORT_ADDR}...")
+# Main Server Setup
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1) # ป้องกัน Address already in use
+server.bind((HOST, PORT))
+server.listen(10)
+print(f"[SERVER] Chat Room running on {PORT}...")
 
-    with ThreadPoolExecutor(max_workers=10) as pool:
-        while True:
-            conn, addr = server.accept()
-            pool.submit(handle, conn, addr) # รัน handle ใน thread ใหม่
-
-def receive_messages(s):
-    """ฟังก์ชันสำหรับรอรับข้อความจาก Server ตลอดเวลา"""
+with ThreadPoolExecutor(max_workers=10) as pool:
     while True:
-        try:
-            data = s.recv(1024)
-            if not data:
-                print("\n[INFO] Disconnected from server.")
-                break
-            print(f"\r{data.decode()}\n> ", end="") # ปรับการแสดงผลให้สวยงาม
-        except:
-            break
-
-def run_client():
-    C_HOST = '127.0.0.1'
-    C_PORT = 9002
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        try:
-            s.connect((C_HOST, C_PORT))
-            
-            # ส่ง Nickname เป็นอย่างแรกตาม R1
-            nickname = input("Enter nickname: ")
-            s.sendall(nickname.encode())
-
-            # สร้าง Thread สำหรับรับข้อมูลเพื่อไม่ให้ block การพิมพ์ input
-            threading.Thread(target=receive_messages, args=(s,), daemon=True).start()
-
-            # Loop สำหรับส่งข้อความ
-            print("Type messages below (or '/quit' to exit):")
-            while True:
-                msg = input("> ")
-                if msg.lower() == '/quit':
-                    break
-                s.sendall(msg.encode())
-        except ConnectionRefusedError:
-            print("[ERROR] Could not connect to server. Is it running?")
-
-if __name__ == "__main__":
-    # ตอนนี้โปรแกรมจะไหลมาถึงบรรทัดนี้ก่อน เพราะ Logic ทั้งหมดถูกหุ้มในฟังก์ชันแล้ว
-    mode = input("Run with Server or Client (S/C)? ").strip().lower()
-    if mode == 's':
-        print("Starting Server...")
-        run_server() 
-    elif mode == 'c':
-        print("Starting Client...")
-        run_client()
-    else:
-        print("Please choose 'S' for Server or 'C' for Client.")
+        conn, addr = server.accept()
+        pool.submit(handle, conn, addr) # รัน handle ใน thread ใหม่

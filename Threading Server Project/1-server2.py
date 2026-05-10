@@ -44,11 +44,11 @@ class CommandHandler:
                 self.dispatch_alerts(bus_id, stop)
             return {"status": "ok", "message": "Location updated"}
 
-        # สำหรับ Client User (ผู้ใช้ทั่วไป) เพื่อติดตามรถ [cite: 24, 27]
+        # สำหรับ Client User (ผู้ใช้ทั่วไป) เพื่อติดตามรถ 
         elif action == "USER_TRACK":
             return {"status": "ok", "buses": BUS_DB}
 
-        # การสมัครรับแจ้งเตือนสำหรับลูกค้า [cite: 53]
+        # การสมัครรับแจ้งเตือนสำหรับลูกค้า 
         elif action == "SUBSCRIBE":
             email = cmd.get("email")
             SUBSCRIBERS[email] = cmd.get("bus_ids", ["ALL"])
